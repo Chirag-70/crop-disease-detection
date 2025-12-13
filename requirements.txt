@@ -1,10 +1,54 @@
+# Streamlit for the web app
 streamlit==1.30.0
+
+# TensorFlow CPU version (SavedModel compatible)
 tensorflow-cpu==2.19.1
-keras==3.12.0
-numpy==1.26.1
+
+# Image processing
 Pillow==10.0.0
-protobuf<4
-rich==13.7.1
+numpy>=1.26.0,<2.2.0
+h5py==3.9.0
+
+# Optional but recommended for rich output in Streamlit logs
+rich==14.2.0
+
+# For data manipulation
+pandas==2.3.3
+
+# Other dependencies used by Streamlit
+altair==5.5.0
+blinker==1.9.0
+cachetools==5.5.2
+click==8.3.1
+importlib-metadata==7.2.1
+packaging==23.2
+pyarrow==22.0.0
+python-dateutil==2.9.0.post0
+requests==2.32.5
+tenacity==8.5.0
+toml==0.10.2
+typing-extensions==4.15.0
+tzlocal==5.3.1
+validators==0.35.0
+gitpython==3.1.45
+pydeck==0.9.1
+tornado==6.5.3
+watchdog==6.0.0
+protobuf==3.20.3
+absl-py==2.3.1
+astunparse==1.6.3
+flatbuffers==25.9.23
+gast==0.7.0
+google-pasta==0.2.0
+libclang==18.1.1
+opt-einsum==3.4.0
+setuptools==80.9.0
+six==1.17.0
+termcolor==3.2.0
+wrapt==2.0.1
+grpcio==1.76.0
+tensorboard==2.19.0
+keras==3.12.0
 
 
 

@@ -20,18 +20,13 @@ with tabs4:
     st.write("Upload a rice leaf image to detect the disease.")
 
     # Load model
-    model_rice = tf.keras.models.load_model(
-    "rice_disease_model.h5",
-    compile=False
-    )
-
+    model_rice = tf.keras.models.load_model("rice_disease_model", compile=False)
 
     # Classes
     class_names_rice = ["BacterialBlight", "BrownSpot", "LeafSmut", "Blast", "Tungro"]
 
     # File uploader
     uploaded_file_rice = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="rice")
-
     if uploaded_file_rice is not None:
         img = Image.open(uploaded_file_rice)
         st.image(img, caption="Uploaded Image", use_column_width=True)
@@ -52,15 +47,10 @@ with tabs1:
     st.title("🌿 Cotton Leaf Disease Detection")
     st.write("Upload a cotton leaf image to detect the disease.")
 
-    model_cotton = tf.keras.models.load_model(
-    "cotton_disease_model.h5",
-    compile=False
-    )
-
+    model_cotton = tf.keras.models.load_model("cotton_disease_model", compile=False)
     class_names_cotton = ["Alternaria Leaf Spot", "Bacterial Blight", "Fusarium Wilt", "Verticillium Wilt"]
 
     uploaded_file_cotton = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="cotton")
-
     if uploaded_file_cotton is not None:
         img = Image.open(uploaded_file_cotton)
         st.image(img, caption="Uploaded Image", use_column_width=True)
@@ -81,15 +71,10 @@ with tabs2:
     st.title("🌿 Maize Leaf Disease Detection")
     st.write("Upload a maize leaf image to detect the disease.")
 
-    model_maize = tf.keras.models.load_model(
-    "maize_disease_model.h5",
-    compile=False
-    )
-
+    model_maize = tf.keras.models.load_model("maize_disease_model", compile=False)
     class_names_maize = ["Blight", "Common_Rust", "Gray_Leaf_Spot"]
 
     uploaded_file_maize = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="maize")
-
     if uploaded_file_maize is not None:
         img = Image.open(uploaded_file_maize)
         st.image(img, caption="Uploaded Image", use_column_width=True)
@@ -110,15 +95,10 @@ with tabs3:
     st.title("🌿 Potato Leaf Disease Detection")
     st.write("Upload a potato leaf image to detect the disease.")
 
-    model_potato = tf.keras.models.load_model(
-    "potato_disease_model.h5",
-    compile=False
-    )
-
+    model_potato = tf.keras.models.load_model("potato_disease_model", compile=False)
     class_names_potato = ["Early_Blight", "Late_Blight"]
 
     uploaded_file_potato = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="potato")
-
     if uploaded_file_potato is not None:
         img = Image.open(uploaded_file_potato)
         st.image(img, caption="Uploaded Image", use_column_width=True)
@@ -139,15 +119,10 @@ with tabs5:
     st.title("🌿 Sugarcane Leaf Disease Detection")
     st.write("Upload a sugarcane leaf image to detect the disease.")
 
-    model_sugarcane = tf.keras.models.load_model(
-    "sugarcane_disease_model.h5",
-    compile=False
-   )
-
+    model_sugarcane = tf.keras.models.load_model("sugarcane_disease_model", compile=False)
     class_names_sugarcane = ["Brown Spot", "BrownRust", "Grassy Shoot", "Viral Disease", "Yellow Leaf"]
 
     uploaded_file_sugarcane = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="sugarcane")
-
     if uploaded_file_sugarcane is not None:
         img = Image.open(uploaded_file_sugarcane)
         st.image(img, caption="Uploaded Image", use_column_width=True)
@@ -168,15 +143,10 @@ with tabs6:
     st.title("🌿 Tomato Leaf Disease Detection")
     st.write("Upload a tomato leaf image to detect the disease.")
 
-    model_tomato = tf.keras.models.load_model(
-    "tomato_disease_model.h5",
-    compile=False
-   )
-
+    model_tomato = tf.keras.models.load_model("tomato_disease_model", compile=False)
     class_names_tomato = ["Bacterial_Spot", "Early_Blight", "Late_Blight", "Target_Spot", "Tomato_Yellow_Leaf_Curl_Virus"]
 
     uploaded_file_tomato = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="tomato")
-
     if uploaded_file_tomato is not None:
         img = Image.open(uploaded_file_tomato)
         st.image(img, caption="Uploaded Image", use_column_width=True)
