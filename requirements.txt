@@ -1,60 +1,15 @@
-# Streamlit for app UI
-streamlit==1.30.0
-
-# TensorFlow CPU version
-tensorflow-cpu==2.19.1
-
-# Keras for model loading
-keras==3.12.0
-
-# H5 format support
-h5py>=3.11.0
+# TensorFlow 2.15 (includes Keras)
+tensorflow==2.15.0
 
 # Image processing
-Pillow==10.0.0
-numpy>=1.26.0,<2.2.0
+Pillow>=9.0.0
+scipy>=1.10.0
+numpy>=1.24.0
 
-# Data handling
-pandas==2.3.3
-pyarrow==22.0.0
+# Web app
+streamlit>=1.25.0
 
-# Visualization
-altair==5.5.0
-pydeck==0.9.1
-
-# Dependency utilities
-rich>=10.14.0,<14
-blinker==1.9.0
-cachetools==5.5.2
-click==8.3.1
-importlib-metadata==7.2.1
-packaging==23.2
-python-dateutil==2.9.0.post0
-requests==2.32.5
-tenacity==8.5.0
-toml==0.10.2
-typing-extensions==4.15.0
-tzlocal==5.3.1
-validators==0.35.0
-gitpython==3.1.45
-tornado==6.5.3
-watchdog==6.0.0
-
-# TensorFlow dependencies
-protobuf==3.20.3
-absl-py==2.3.1
-astunparse==1.6.3
-flatbuffers==25.9.23
-gast==0.7.0
-google-pasta==0.2.0
-libclang==18.1.1
-opt-einsum==3.4.0
-setuptools==80.9.0
-six==1.17.0
-termcolor==3.2.0
-wrapt==2.0.1
-grpcio==1.76.0
-tensorboard==2.19.0
-
+# Optional: for file handling / OS operations
+h5py>=3.9.0
 
 
