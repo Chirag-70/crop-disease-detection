@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array
 from PIL import Image
 
-# Create tabs
+
 tabs1, tabs2, tabs3, tabs4, tabs5, tabs6 = st.tabs([
     "Cotton disease detection",
     "Maize disease detection",
