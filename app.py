@@ -12,7 +12,7 @@ from google import genai
 # --------------------------------------------------
 st.set_page_config(page_title="AI Crop Disease Detection", layout="wide")
 st.markdown(
-    "<h1 style='text-align: left; color: #0a0908; font-size: 50px;'>Crop-Detection Saarthi</h1>",
+    "<h1 style='text-align: center; color: #0a0908; font-size: 50px;'>Crop-Detection Saarthi</h1>",
     unsafe_allow_html=True
 )
 
@@ -20,7 +20,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #52796f;
+        background-color: #99582a;
     }
     </style>
     """,
