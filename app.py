@@ -10,10 +10,7 @@ from google import genai
 # --------------------------------------------------
 # PAGE CONFIG
 # --------------------------------------------------
-st.set_page_config(
-    page_title="AI Crop Disease Detection",
-    layout="wide"
-)
+st.set_page_config(page_title="AI Crop Disease Detection", layout="wide")
 
 st.markdown(
     """
@@ -34,7 +31,7 @@ load_dotenv()
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # --------------------------------------------------
-# SYSTEM PROMPT (INLINE)
+# SYSTEM PROMPT
 # --------------------------------------------------
 SYSTEM_PROMPT = """
 You are an agricultural plant disease expert.
@@ -43,12 +40,12 @@ Explain the predicted crop disease briefly.
 Mention disease type, symptoms, prevention, and treatment.
 Use simple farmer-friendly language.
 Do not claim full certainty.
-If disease seems severe or uncontrollable, advise consulting a plant pathologist.
+If disease is severe or uncontrollable, advise consulting a plant pathologist.
 Keep answers short and practical.
 """
 
 # --------------------------------------------------
-# GEMINI FUNCTION (STREAMLIT CLOUD SAFE)
+# GEMINI CHAT FUNCTION (FIXED)
 # --------------------------------------------------
 def gemini_chat(crop, disease, confidence):
     prompt = f"""
@@ -64,7 +61,7 @@ Give short farmer-friendly advice.
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=prompt,
-        generation_config={
+        config={                     # ✅ CORRECT KEY
             "max_output_tokens": 700,
             "temperature": 0.4,
             "top_p": 0.9
@@ -94,7 +91,11 @@ with tabs4:
     model_rice = tf.keras.models.load_model("rice_disease_model", compile=False)
     class_names_rice = ["BacterialBlight", "BrownSpot", "LeafSmut", "Blast", "Tungro"]
 
-    uploaded_file = st.file_uploader("Upload rice leaf image", type=["jpg", "jpeg", "png"], key="rice")
+    uploaded_file = st.file_uploader(
+        "Upload a rice leaf image",
+        type=["jpg", "jpeg", "png"],
+        key="rice"
+    )
 
     if uploaded_file:
         img = Image.open(uploaded_file).convert("RGB")
@@ -124,7 +125,11 @@ with tabs1:
     model = tf.keras.models.load_model("cotton_disease_model", compile=False)
     classes = ["Alternaria Leaf Spot", "Bacterial Blight", "Fusarium Wilt", "Verticillium Wilt"]
 
-    uploaded_file = st.file_uploader("Upload cotton leaf image", type=["jpg", "jpeg", "png"], key="cotton")
+    uploaded_file = st.file_uploader(
+        "Upload a cotton leaf image",
+        type=["jpg", "jpeg", "png"],
+        key="cotton"
+    )
 
     if uploaded_file:
         img = Image.open(uploaded_file).convert("RGB")
@@ -144,4 +149,3 @@ with tabs1:
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Cotton", disease, confidence))
-
