@@ -11,6 +11,10 @@ from google import genai
 # PAGE CONFIG
 # --------------------------------------------------
 st.set_page_config(page_title="AI Crop Disease Detection", layout="wide")
+st.markdown(
+    "<h1 style='text-align: left; color: #0a0908; font-size: 50px;'>Crop-Detection Saarthi</h1>",
+    unsafe_allow_html=True
+)
 
 st.markdown(
     """
@@ -42,6 +46,7 @@ Use simple farmer-friendly language.
 Do not claim full certainty.
 If disease is severe or uncontrollable, advise consulting a plant pathologist.
 Keep answers short and practical.
+Give overall percentage of crop health in bold letters.
 """
 
 # --------------------------------------------------
