@@ -116,7 +116,7 @@ with tabs4:
         disease = class_names_rice[idx]
 
         st.success(f"🌱 Prediction: {disease}")
-        st.info(f"🔍 Confidence: {confidence:.2f}%")
+        st.success(f"🔍 Confidence: {confidence:.2f}%")
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Rice", disease, confidence))
@@ -150,7 +150,7 @@ with tabs1:
         disease = classes[idx]
 
         st.success(f"🌱 Prediction: {disease}")
-        st.info(f"🔍 Confidence: {confidence:.2f}%")
+        st.success(f"🔍 Confidence: {confidence:.2f}%")
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Cotton", disease, confidence))
