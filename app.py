@@ -8,7 +8,12 @@ from dotenv import load_dotenv
 from google import genai
 
 
-st.set_page_config(page_title="AI Crop Disease Detection", layout="wide")
+# PAGE CONFIG
+# --------------------------------------------------
+st.set_page_config(
+    page_title="AI Crop Disease Detection",
+    layout="wide"
+)
 
 st.markdown(
     """
@@ -21,24 +26,30 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
+# LOAD ENV
+# --------------------------------------------------
 load_dotenv()
 
 client = genai.Client(
     api_key=os.getenv("GOOGLE_API_KEY")
 )
 
+
+# SYSTEM PROMPT
+# --------------------------------------------------
 SYSTEM_PROMPT = """
 You are an agricultural plant disease expert.
 
-Explain the predicted crop disease shortly.
-Mention disease type, symptoms, prevention, and treatment in simple language.
-Keep answers short and practical.
+Explain the predicted crop disease briefly.
+Mention disease type, symptoms, prevention, and treatment.
+Use simple farmer-friendly language.
 Do not claim full certainty.
-Give short answers only.
-If the crop condition is is not control so suggest them to consult physically to plant pathologists.
+If disease seems severe or uncontrollable, advise consulting a plant pathologist.
+Keep answers short and practical.
 """
 
+# GEMINI FUNCTION (FIXED)
+# --------------------------------------------------
 def gemini_chat(crop, disease, confidence):
     prompt = f"""
 Crop: {crop}
@@ -54,7 +65,7 @@ Give short farmer-friendly advice.
             {"role": "system", "parts": [{"text": SYSTEM_PROMPT}]},
             {"role": "user", "parts": [{"text": prompt}]}
         ],
-        generation_config=types.GenerationConfig(
+        generation_config=genai.types.GenerationConfig(
             max_output_tokens=700,
             temperature=0.4,
             top_p=0.9
@@ -64,6 +75,8 @@ Give short farmer-friendly advice.
     return response.text
 
 
+# TABS
+# --------------------------------------------------
 tabs1, tabs2, tabs3, tabs4, tabs5, tabs6 = st.tabs([
     "Cotton disease detection",
     "Maize disease detection",
@@ -73,7 +86,9 @@ tabs1, tabs2, tabs3, tabs4, tabs5, tabs6 = st.tabs([
     "Tomato disease detection"
 ])
 
-# ----------------- Rice Disease Tab -----------------
+
+# RICE
+# --------------------------------------------------
 with tabs4:
     st.title("🌾 Rice Leaf Disease Detection")
     st.write("Upload a rice leaf image to detect the disease.")
@@ -81,78 +96,89 @@ with tabs4:
     model_rice = tf.keras.models.load_model("rice_disease_model", compile=False)
     class_names_rice = ["BacterialBlight", "BrownSpot", "LeafSmut", "Blast", "Tungro"]
 
-    uploaded_file_rice = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="rice")
-    if uploaded_file_rice is not None:
-        img = Image.open(uploaded_file_rice)
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], key="rice")
+
+    if uploaded_file:
+        img = Image.open(uploaded_file).convert("RGB")
         st.image(img, caption="Uploaded Image", use_column_width=True)
 
         img = img.resize((128, 128))
         img_array = img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
-        predictions = model_rice.predict(img_array)
-        index = np.argmax(predictions)
-        confidence = predictions[0][index] * 100
-        disease = class_names_rice[index]
+        preds = model_rice.predict(img_array)
+        idx = np.argmax(preds)
+        confidence = preds[0][idx] * 100
+        disease = class_names_rice[idx]
 
-        st.success(f"🌱 **Prediction: {disease}**")
+        st.success(f"🌱 Prediction: {disease}")
         st.info(f"🔍 Confidence: {confidence:.2f}%")
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Rice", disease, confidence))
 
-# ----------------- Cotton Disease Tab -----------------
+
+# COTTON
+# --------------------------------------------------
 with tabs1:
     st.title("🌿 Cotton Leaf Disease Detection")
-    st.write("Upload a cotton leaf image to detect the disease.")
 
     model_cotton = tf.keras.models.load_model("cotton_disease_model", compile=False)
-    class_names_cotton = ["Alternaria Leaf Spot", "Bacterial Blight", "Fusarium Wilt", "Verticillium Wilt"]
+    class_names_cotton = [
+        "Alternaria Leaf Spot",
+        "Bacterial Blight",
+        "Fusarium Wilt",
+        "Verticillium Wilt"
+    ]
 
-    uploaded_file_cotton = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="cotton")
-    if uploaded_file_cotton is not None:
-        img = Image.open(uploaded_file_cotton)
-        st.image(img, caption="Uploaded Image", use_column_width=True)
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], key="cotton")
+
+    if uploaded_file:
+        img = Image.open(uploaded_file).convert("RGB")
+        st.image(img, use_column_width=True)
 
         img = img.resize((128, 128))
         img_array = img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
-        predictions = model_cotton.predict(img_array)
-        index = np.argmax(predictions)
-        confidence = predictions[0][index] * 100
-        disease = class_names_cotton[index]
+        preds = model_cotton.predict(img_array)
+        idx = np.argmax(preds)
+        confidence = preds[0][idx] * 100
+        disease = class_names_cotton[idx]
 
-        st.success(f"🌱 **Prediction: {disease}**")
+        st.success(f"🌱 Prediction: {disease}")
         st.info(f"🔍 Confidence: {confidence:.2f}%")
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Cotton", disease, confidence))
 
-# ----------------- Maize Disease Tab -----------------
+# --------------------------------------------------
+# MAIZE
+# --------------------------------------------------
 with tabs2:
-    st.title("🌿 Maize Leaf Disease Detection")
-    st.write("Upload a maize leaf image to detect the disease.")
+    st.title("🌽 Maize Leaf Disease Detection")
 
     model_maize = tf.keras.models.load_model("maize_disease_model", compile=False)
     class_names_maize = ["Blight", "Common_Rust", "Gray_Leaf_Spot"]
 
-    uploaded_file_maize = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"], key="maize")
-    if uploaded_file_maize is not None:
-        img = Image.open(uploaded_file_maize)
-        st.image(img, caption="Uploaded Image", use_column_width=True)
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], key="maize")
+
+    if uploaded_file:
+        img = Image.open(uploaded_file).convert("RGB")
+        st.image(img, use_column_width=True)
 
         img = img.resize((128, 128))
         img_array = img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
-        predictions = model_maize.predict(img_array)
-        index = np.argmax(predictions)
-        confidence = predictions[0][index] * 100
-        disease = class_names_maize[index]
+        preds = model_maize.predict(img_array)
+        idx = np.argmax(preds)
+        confidence = preds[0][idx] * 100
+        disease = class_names_maize[idx]
 
-        st.success(f"🌱 **Prediction: {disease}**")
+        st.success(f"🌱 Prediction: {disease}")
         st.info(f"🔍 Confidence: {confidence:.2f}%")
 
         st.markdown("### 🌾 AI Advisory")
         st.markdown(gemini_chat("Maize", disease, confidence))
+
