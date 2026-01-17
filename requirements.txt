@@ -11,5 +11,8 @@ streamlit>=1.25.0
 
 # Optional: for file handling / OS operations
 h5py>=3.9.0
+#sdk
+python-dotenv
+google-genai
 
 
