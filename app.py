@@ -54,13 +54,13 @@ Give short farmer-friendly advice.
             {"role": "system", "parts": [{"text": SYSTEM_PROMPT}]},
             {"role": "user", "parts": [{"text": prompt}]}
         ],
-        generation_config={
-            "max_output_tokens": 700,
-            "temperature": 0.4,
-            "top_p": 0.9
-            
-        }
+        generation_config=types.GenerationConfig(
+            max_output_tokens=700,
+            temperature=0.4,
+            top_p=0.9
+        )
     )
+
     return response.text
 
 
