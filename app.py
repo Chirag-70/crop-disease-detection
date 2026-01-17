@@ -16,7 +16,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #dedbd2;
+        background-color: #52796f;
     }
     </style>
     """,
@@ -63,7 +63,7 @@ Give short farmer-friendly advice.
         contents=prompt,
         config={                     # ✅ CORRECT KEY
             "max_output_tokens": 700,
-            "temperature": 0.4,
+            "temperature": 0.3,
             "top_p": 0.9
         }
     )
