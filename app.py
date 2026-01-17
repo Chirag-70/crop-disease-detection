@@ -62,7 +62,7 @@ Give short farmer-friendly advice.
         model="gemini-2.5-flash",
         contents=prompt,
         config={                     # ✅ CORRECT KEY
-            "max_output_tokens": 700,
+            "max_output_tokens": 1500,
             "temperature": 0.3,
             "top_p": 0.9
         }
